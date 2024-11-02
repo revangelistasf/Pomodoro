@@ -7,7 +7,7 @@
 
 import ComposableArchitecture
 
-struct Pomodoro: Reducer {
+struct PomodoroReducer: Reducer {
 
     @ObservableState
     struct State: Equatable {
@@ -20,7 +20,7 @@ struct Pomodoro: Reducer {
         case stopButtonTapped
     }
 
-    var body: some ReducerOf<Pomodoro> {
+    var body: some ReducerOf<PomodoroReducer> {
         Reduce { state, action in
             switch action {
             case .startButtonTapped:

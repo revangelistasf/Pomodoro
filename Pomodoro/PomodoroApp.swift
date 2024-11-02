@@ -11,7 +11,18 @@ import SwiftUI
 struct PomodoroApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if isProduction {
+                PomodoroMainView(
+                    store: .init(
+                        initialState: PomodoroReducer.State(),
+                        reducer: { PomodoroReducer() }
+                    )
+                )
+            }
         }
+    }
+
+    private var isProduction: Bool {
+        NSClassFromString("XCTestCase") == nil
     }
 }

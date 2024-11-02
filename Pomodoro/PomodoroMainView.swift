@@ -9,8 +9,7 @@ import ComposableArchitecture
 import SwiftUI
 
 struct PomodoroMainView: View {
-
-    let store: StoreOf<Pomodoro>
+    let store: StoreOf<PomodoroReducer>
 
     var body: some View {
         VStack {
@@ -32,9 +31,9 @@ struct PomodoroMainView: View {
                 .font(.largeTitle)
 
             HStack(spacing: 24) {
-                Button { }
+                Button { store.send(store.isTimerRunning == false ? .startButtonTapped : .pauseButtonTapped) }
                 label: {
-                    Text("Start/Pause")
+                    Text(store.isTimerRunning == false ? "Start" : "Pause")
                         .font(.title)
                 }
                 .buttonStyle(.borderedProminent)
@@ -63,11 +62,11 @@ struct PomodoroMainView: View {
     }
 }
 
-//#Preview {
-//    PomodoroMainView(
-//        store: .init(
-//            initialState: Pomodoro.State,
-//            reducer: Pomodoro()
-//        )
-//    )
-//}
+#Preview {
+    PomodoroMainView(
+        store: .init(
+            initialState: PomodoroReducer.State(),
+            reducer: { PomodoroReducer() }
+        )
+    )
+}
