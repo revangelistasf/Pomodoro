@@ -27,18 +27,18 @@ struct PomodoroMainView: View {
         VStack {
             Text("Name of the task")
 
-            Text("25:00")
+            Text(store.timer)
                 .font(.largeTitle)
 
             HStack(spacing: 24) {
-                Button { store.send(store.isTimerRunning == false ? .startButtonTapped : .pauseButtonTapped) }
+                Button { store.send(store.isTimerRunning == false ? .startTapped : .pauseTapped) }
                 label: {
                     Text(store.isTimerRunning == false ? "Start" : "Pause")
                         .font(.title)
                 }
                 .buttonStyle(.borderedProminent)
 
-                Button { }
+                Button { store.send(.stopTapped) }
                 label: {
                     Text("Stop")
                         .font(.title)
@@ -46,6 +46,7 @@ struct PomodoroMainView: View {
                 .buttonStyle(.borderedProminent)
             }
         }
+        .onAppear { store.send(.onAppear) }
         .padding()
         .frame(maxWidth: .infinity)
         .background(Color.red)

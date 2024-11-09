@@ -15,7 +15,7 @@ struct PomodoroApp: App {
                 PomodoroMainView(
                     store: .init(
                         initialState: PomodoroReducer.State(),
-                        reducer: { PomodoroReducer() }
+                        reducer: { PomodoroReducer()._printChanges() }
                     )
                 )
             }

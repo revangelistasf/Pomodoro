@@ -6,33 +6,92 @@
 //
 
 import ComposableArchitecture
+import Foundation
 
 struct PomodoroReducer: Reducer {
+    @Dependency(\.continuousClock) var clock
+
 
     @ObservableState
     struct State: Equatable {
+        let pomodoroMinutesDuration: Int = 25
+
+        var pomodoroSecondsDuration: Int {
+            3
+            //            pomodoroMinutesDuration * 60
+        }
+
         var isTimerRunning = false
+        var secondsElapsed: TimeInterval = 0
+
+        let formatter = PomodoroFormatter()
+        var timer: String {
+            formatter.format(seconds: secondsElapsed)
+        }
     }
 
     enum Action: Equatable {
-        case startButtonTapped
-        case pauseButtonTapped
-        case stopButtonTapped
+        case onAppear
+        case startTapped
+        case pauseTapped
+        case stopTapped
+        case timerTicked
     }
 
     var body: some ReducerOf<PomodoroReducer> {
         Reduce { state, action in
             switch action {
-            case .startButtonTapped:
+            case .onAppear:
+                state.secondsElapsed = Double(state.pomodoroSecondsDuration)
+                return .none
+
+            case .startTapped:
                 state.isTimerRunning = true
-                return .none
+                return .run { send in
+                    for await _ in clock.timer(interval: .seconds(1)) {
+                        await send(.timerTicked)
+                    }
+                }
+                .cancellable(id: CancelID.timer)
 
-            case .pauseButtonTapped:
+            case .pauseTapped:
                 state.isTimerRunning = false
-                return .none
+                return .cancel(id: CancelID.timer)
 
-            default: return .none
+            case .stopTapped:
+                state.isTimerRunning = false
+                state.secondsElapsed = 0
+                return .cancel(id: CancelID.timer)
+
+            case .timerTicked:
+                state.secondsElapsed -= 1
+
+                if state.secondsElapsed == 0 {
+                    // TODO: - Next Task on List / Break
+                    return .send(.stopTapped)
+                }
+                return .none
             }
         }
     }
+}
+
+// MARK: - Private Methods
+struct PomodoroFormatter: Equatable {
+    let formatter: DateComponentsFormatter
+
+    init() {
+        self.formatter = DateComponentsFormatter()
+        self.formatter.unitsStyle = .positional
+        self.formatter.allowedUnits = [.minute, .second]
+    }
+
+    func format(seconds: TimeInterval) -> String {
+        return formatter.string(from: seconds) ?? "00:00"
+    }
+}
+
+// MARK: - Cancellables
+private enum CancelID: Hashable {
+    case timer
 }

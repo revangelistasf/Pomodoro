@@ -11,31 +11,55 @@ import XCTest
 @testable import Pomodoro
 
 final class PomodoroAppTests: XCTestCase {
-    func test_startButtonTapped() async throws {
-        let sut = await TestStore(
-            initialState: PomodoroReducer.State()
-        ) {
-            PomodoroReducer()
-        }
 
-        await sut.send(.startButtonTapped) {
+    let clock = TestClock()
+
+    func test_toggleTimer() async throws {
+        let sut = await makeSUT()
+
+        await sut.send(.startTapped) {
             $0.isTimerRunning = true
         }
 
-        await sut.send(.pauseButtonTapped) {
+        await clock.advance(by: .seconds(3))
+
+        await sut.receive(.timerTicked) { $0.secondsElapsed = 1 }
+        await sut.receive(.timerTicked) { $0.secondsElapsed = 2 }
+        await sut.receive(.timerTicked) { $0.secondsElapsed = 3 }
+
+        await sut.send(.pauseTapped) {
             $0.isTimerRunning = false
         }
     }
 
-    func test_pauseButtonTapped() async throws {
-        let sut = await TestStore(
+    func test_stopTimmer() async throws {
+        let sut = await makeSUT()
+
+        await sut.send(.startTapped) {
+            $0.isTimerRunning = true
+        }
+
+        await clock.advance(by: .seconds(3))
+
+        await sut.receive(.timerTicked) { $0.secondsElapsed = 1 }
+        await sut.receive(.timerTicked) { $0.secondsElapsed = 2 }
+        await sut.receive(.timerTicked) { $0.secondsElapsed = 3 }
+
+        await sut.send(.pauseTapped) {
+            $0.isTimerRunning = false
+        }
+    }
+}
+
+// MARK: - Helpers
+extension PomodoroAppTests {
+    private func makeSUT() async -> TestStoreOf<PomodoroReducer> {
+        await TestStore(
             initialState: PomodoroReducer.State()
         ) {
             PomodoroReducer()
-        }
-
-        await sut.send(.pauseButtonTapped) {
-            $0.isTimerRunning = false
+        } withDependencies: {
+            $0.continuousClock = clock
         }
     }
 }
