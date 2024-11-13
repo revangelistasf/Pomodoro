@@ -60,7 +60,7 @@ struct PomodoroReducer: Reducer {
 
             case .stopTapped:
                 state.isTimerRunning = false
-                state.secondsElapsed = 0
+                state.secondsElapsed = Double(state.pomodoroSecondsDuration)
                 return .cancel(id: CancelID.timer)
 
             case .timerTicked:

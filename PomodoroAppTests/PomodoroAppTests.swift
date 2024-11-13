@@ -36,14 +36,28 @@ final class PomodoroAppTests: XCTestCase {
 		await sut.send(.pauseTapped) {
 			$0.isTimerRunning = false
 		}
+
+		await sut.send(.stopTapped) {
+			$0.secondsElapsed = defaultPomodoroTimer
+		}
 	}
-	
+
+	func test_stopTimer_StopsTimer() async throws {
+		var sut = await makeSUT()
+		sut.exhaustivity = .off
+
+		await sut.send(.stopTapped) {
+			$0.isTimerRunning = false
+		}
+	}
+
 }
 
 // MARK: - Helpers
 extension PomodoroAppTests {
-    private func makeSUT() async -> TestStoreOf<PomodoroReducer> {
-        await TestStore(
+	@MainActor
+    private func makeSUT() -> TestStoreOf<PomodoroReducer> {
+        TestStore(
             initialState: PomodoroReducer.State()
         ) {
             PomodoroReducer()
