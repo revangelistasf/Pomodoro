@@ -16,6 +16,12 @@ final class PomodoroAppTests: XCTestCase {
 
 	func test_toggleTimer() async throws {
 		let sut = await makeSUT()
+		let defaultMinutesPomodoroDuration: Double = 25.0
+		let defaultPomodoroTimer = defaultMinutesPomodoroDuration * 60 // Timer in seconds.
+
+		await sut.send(.onAppear) {
+			$0.secondsElapsed = defaultPomodoroTimer
+		}
 
 		await sut.send(.startTapped) {
 			$0.isTimerRunning = true
@@ -23,9 +29,9 @@ final class PomodoroAppTests: XCTestCase {
 
 		await clock.advance(by: .seconds(3))
 
-		await sut.receive(.timerTicked) { $0.secondsElapsed = 1 }
-		await sut.receive(.timerTicked) { $0.secondsElapsed = 2 }
-		await sut.receive(.timerTicked) { $0.secondsElapsed = 3 }
+		await sut.receive(.timerTicked) { $0.secondsElapsed = defaultPomodoroTimer - 1 }
+		await sut.receive(.timerTicked) { $0.secondsElapsed = defaultPomodoroTimer - 2 }
+		await sut.receive(.timerTicked) { $0.secondsElapsed = defaultPomodoroTimer - 3 }
 
 		await sut.send(.pauseTapped) {
 			$0.isTimerRunning = false

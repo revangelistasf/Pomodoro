@@ -9,15 +9,14 @@ import ComposableArchitecture
 import Foundation
 
 struct PomodoroReducer: Reducer {
-    @Dependency(\.continuousClock) var clock
 
     @ObservableState
     struct State: Equatable {
-        let pomodoroMinutesDuration: Int = 25
+		// TODO: - Check how I can create a init for this variable because user will be able to custom this.
+        var pomodoroMinutesDuration: Int = 25
 
-        var pomodoroSecondsDuration: Int {
-            3
-            //            pomodoroMinutesDuration * 60
+        var pomodoroSecondsDuration: TimeInterval {
+			Double(pomodoroMinutesDuration) * 60
         }
 
         var isTimerRunning = false
@@ -36,6 +35,8 @@ struct PomodoroReducer: Reducer {
         case stopTapped
         case timerTicked
     }
+
+	@Dependency(\.continuousClock) var clock
 
     var body: some ReducerOf<PomodoroReducer> {
         Reduce { state, action in
