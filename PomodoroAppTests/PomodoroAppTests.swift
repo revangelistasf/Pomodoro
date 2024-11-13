@@ -12,43 +12,26 @@ import XCTest
 
 final class PomodoroAppTests: XCTestCase {
 
-    let clock = TestClock()
+	let clock = TestClock()
 
-    func test_toggleTimer() async throws {
-        let sut = await makeSUT()
+	func test_toggleTimer() async throws {
+		let sut = await makeSUT()
 
-        await sut.send(.startTapped) {
-            $0.isTimerRunning = true
-        }
+		await sut.send(.startTapped) {
+			$0.isTimerRunning = true
+		}
 
-        await clock.advance(by: .seconds(3))
+		await clock.advance(by: .seconds(3))
 
-        await sut.receive(.timerTicked) { $0.secondsElapsed = 1 }
-        await sut.receive(.timerTicked) { $0.secondsElapsed = 2 }
-        await sut.receive(.timerTicked) { $0.secondsElapsed = 3 }
+		await sut.receive(.timerTicked) { $0.secondsElapsed = 1 }
+		await sut.receive(.timerTicked) { $0.secondsElapsed = 2 }
+		await sut.receive(.timerTicked) { $0.secondsElapsed = 3 }
 
-        await sut.send(.pauseTapped) {
-            $0.isTimerRunning = false
-        }
-    }
-
-    func test_stopTimmer() async throws {
-        let sut = await makeSUT()
-
-        await sut.send(.startTapped) {
-            $0.isTimerRunning = true
-        }
-
-        await clock.advance(by: .seconds(3))
-
-        await sut.receive(.timerTicked) { $0.secondsElapsed = 1 }
-        await sut.receive(.timerTicked) { $0.secondsElapsed = 2 }
-        await sut.receive(.timerTicked) { $0.secondsElapsed = 3 }
-
-        await sut.send(.pauseTapped) {
-            $0.isTimerRunning = false
-        }
-    }
+		await sut.send(.pauseTapped) {
+			$0.isTimerRunning = false
+		}
+	}
+	
 }
 
 // MARK: - Helpers

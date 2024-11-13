@@ -11,7 +11,6 @@ import Foundation
 struct PomodoroReducer: Reducer {
     @Dependency(\.continuousClock) var clock
 
-
     @ObservableState
     struct State: Equatable {
         let pomodoroMinutesDuration: Int = 25
@@ -73,21 +72,6 @@ struct PomodoroReducer: Reducer {
                 return .none
             }
         }
-    }
-}
-
-// MARK: - Private Methods
-struct PomodoroFormatter: Equatable {
-    let formatter: DateComponentsFormatter
-
-    init() {
-        self.formatter = DateComponentsFormatter()
-        self.formatter.unitsStyle = .positional
-        self.formatter.allowedUnits = [.minute, .second]
-    }
-
-    func format(seconds: TimeInterval) -> String {
-        return formatter.string(from: seconds) ?? "00:00"
     }
 }
 
