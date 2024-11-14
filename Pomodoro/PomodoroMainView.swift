@@ -31,10 +31,12 @@ struct PomodoroMainView: View {
                 .font(.largeTitle)
 
             HStack(spacing: 24) {
+				// TODO: - Improve this to usage of "Start" and "Resume"/"Pause". "Stop"/"Done"
                 Button { store.send(store.isTimerRunning == false ? .startTapped : .pauseTapped) }
                 label: {
                     Text(store.isTimerRunning == false ? "Start" : "Pause")
                         .font(.title)
+						.frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
 
@@ -42,6 +44,7 @@ struct PomodoroMainView: View {
                 label: {
                     Text("Stop")
                         .font(.title)
+						.frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
             }
