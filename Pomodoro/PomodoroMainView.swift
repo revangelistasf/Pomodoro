@@ -12,23 +12,36 @@ struct PomodoroMainView: View {
     let store: StoreOf<PomodoroReducer>
 
     var body: some View {
-        ScrollView {
-            timerView
+		NavigationStack {
+			ScrollView {
+				timerView
 
-            todoView
+				todoView
 
-            finishedTasksView
+				finishedTasksView
 
-            Spacer()
-        }
+				Spacer()
+			}
+			.toolbar {
+				ToolbarItem(placement: .topBarTrailing) {
+					Button {
+
+					} label: {
+						Text("Add Task")
+					}
+
+				}
+			}
+		}
     }
 
     private var timerView: some View {
-        VStack {
+		VStack(spacing: 12) {
             Text("Name of the task")
+				.font(.title)
 
             Text(store.timer)
-                .font(.largeTitle)
+				.font(.system(size: 50))
 
             HStack(spacing: 24) {
 				// TODO: - Improve this to usage of "Start" and "Resume"/"Pause". "Stop"/"Done"
@@ -46,14 +59,13 @@ struct PomodoroMainView: View {
                         .font(.title)
 						.frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(TimerButtonStyle())
             }
         }
         .onAppear { store.send(.onAppear) }
 		.padding()
         .frame(maxWidth: .infinity)
-        .background(Color.red)
-        .padding()
+		.background(Color.red.ignoresSafeArea())
     }
 
 	// TODO: - Create View Component for Todo Tasks List
