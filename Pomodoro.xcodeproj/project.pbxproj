@@ -14,6 +14,7 @@
 		84DA34C02BE1731E000789AB /* PomodoroMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA34BF2BE1731E000789AB /* PomodoroMainView.swift */; };
 		84DA34C22BE1731F000789AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84DA34C12BE1731F000789AB /* Assets.xcassets */; };
 		84DA34C52BE1731F000789AB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84DA34C42BE1731F000789AB /* Preview Assets.xcassets */; };
+		B7785B8E2CF26199000FB897 /* TimerButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7785B8D2CF2618B000FB897 /* TimerButtonStyle.swift */; };
 		B7B65BE42CF224B9000719E9 /* DividerWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B65BE32CF224B0000719E9 /* DividerWithText.swift */; };
 		B7B65BE62CF2515E000719E9 /* TaskItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B65BE52CF25159000719E9 /* TaskItem.swift */; };
 /* End PBXBuildFile section */
@@ -37,6 +38,7 @@
 		84DA34BF2BE1731E000789AB /* PomodoroMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroMainView.swift; sourceTree = "<group>"; };
 		84DA34C12BE1731F000789AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84DA34C42BE1731F000789AB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B7785B8D2CF2618B000FB897 /* TimerButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerButtonStyle.swift; sourceTree = "<group>"; };
 		B7B65BE32CF224B0000719E9 /* DividerWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerWithText.swift; sourceTree = "<group>"; };
 		B7B65BE52CF25159000719E9 /* TaskItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,9 +114,18 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		B7785B8C2CF2617A000FB897 /* ButtonStyle */ = {
+			isa = PBXGroup;
+			children = (
+				B7785B8D2CF2618B000FB897 /* TimerButtonStyle.swift */,
+			);
+			path = ButtonStyle;
+			sourceTree = "<group>";
+		};
 		B7B65BE22CF22333000719E9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B7785B8C2CF2617A000FB897 /* ButtonStyle */,
 				B7B65BE52CF25159000719E9 /* TaskItem.swift */,
 				B7B65BE32CF224B0000719E9 /* DividerWithText.swift */,
 			);
@@ -242,6 +253,7 @@
 				84DA34C02BE1731E000789AB /* PomodoroMainView.swift in Sources */,
 				B7B65BE42CF224B9000719E9 /* DividerWithText.swift in Sources */,
 				84DA34BE2BE1731E000789AB /* PomodoroApp.swift in Sources */,
+				B7785B8E2CF26199000FB897 /* TimerButtonStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

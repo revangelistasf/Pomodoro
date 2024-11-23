@@ -38,7 +38,7 @@ struct PomodoroMainView: View {
                         .font(.title)
 						.frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(TimerButtonStyle())
 
                 Button { store.send(.stopTapped) }
                 label: {
@@ -56,28 +56,29 @@ struct PomodoroMainView: View {
         .padding()
     }
 
+	// TODO: - Create View Component for Todo Tasks List
     private var todoView: some View {
 		VStack {
 			DividerWithText(texts: formatTodoHeaderText(tasksRemaining: 4, taskTime: "1h 40m", restTime: "35m"))
 			VStack {
-				HStack {
-					Text("Code Review")
-					Spacer()
-					Text("x2")
-						.padding()
-						.clipShape(.buttonBorder)
-						.border(.black)
-				}
-				.padding()
-				.clipShape(.buttonBorder)
-				.border(.black)
+				TaskItem(type: .todo)
+				TaskItem(type: .todo)
+				TaskItem(type: .todo)
 			}
 			.padding(.horizontal)
 		}
     }
 
+	// TODO: - Create View Component for Finished Tasks List
     private var finishedTasksView: some View {
-		DividerWithText(texts: ["Done: 1", "25 m"])
+		VStack {
+			DividerWithText(texts: ["Done: 1", "25 m"])
+			VStack {
+				TaskItem(type: .done)
+				TaskItem(type: .done)
+			}
+			.padding(.horizontal)
+		}
     }
 
 	// MARK: - Helper

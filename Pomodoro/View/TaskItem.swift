@@ -20,7 +20,7 @@ struct TaskItem: View {
 		}
 		.padding()
 		.clipShape(.buttonBorder)
-		.frame(maxHeight: 75)
+		.frame(maxHeight: .cellMaxHeight)
 		.border(.black)
 	}
 
@@ -57,17 +57,20 @@ struct TaskItem: View {
 	}
 }
 
+// MARK: - Constants
 private extension CGFloat {
+	static let cellMaxHeight: Self = 75
 	static let iconSize: Self = 48
 }
 
-
+// TODO: - Move this to model later
 extension TaskItem {
 	enum TaskItemType {
 		case todo, done
 	}
 }
 
+// MARK: - Preview
 #Preview {
 	VStack {
 		TaskItem(type: .todo)
