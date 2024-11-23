@@ -12,7 +12,7 @@ struct PomodoroMainView: View {
     let store: StoreOf<PomodoroReducer>
 
     var body: some View {
-        VStack {
+        ScrollView {
             timerView
 
             todoView
@@ -50,20 +50,48 @@ struct PomodoroMainView: View {
             }
         }
         .onAppear { store.send(.onAppear) }
-        .padding()
+		.padding()
         .frame(maxWidth: .infinity)
         .background(Color.red)
-        .clipShape(.buttonBorder)
         .padding()
     }
 
     private var todoView: some View {
-        EmptyView()
+		VStack {
+			DividerWithText(texts: formatTodoHeaderText(tasksRemaining: 4, taskTime: "1h 40m", restTime: "35m"))
+			VStack {
+				HStack {
+					Text("Code Review")
+					Spacer()
+					Text("x2")
+						.padding()
+						.clipShape(.buttonBorder)
+						.border(.black)
+				}
+				.padding()
+				.clipShape(.buttonBorder)
+				.border(.black)
+			}
+			.padding(.horizontal)
+		}
     }
 
     private var finishedTasksView: some View {
-        EmptyView()
+		DividerWithText(texts: ["Done: 1", "25 m"])
     }
+
+	// MARK: - Helper
+	private func formatTodoHeaderText(
+		tasksRemaining: Int,
+		taskTime: String,
+		restTime: String
+	) -> [String] {
+		return [
+			"TODO: \(tasksRemaining)",
+			"Task Time: \(taskTime)",
+			"Rest Time: \(restTime)"
+		]
+	}
 }
 
 #Preview {

@@ -67,7 +67,6 @@ struct PomodoroReducer: Reducer {
                 state.secondsElapsed -= 1
 
                 if state.secondsElapsed == 0 {
-                    // TODO: - Next Task on List / Break
                     return .send(.stopTapped)
                 }
                 return .none
