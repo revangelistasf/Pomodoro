@@ -4,21 +4,24 @@
 import PackageDescription
 
 let package = Package(
-    name: "Packages",
+    name: "Main",
+	platforms: [
+		.iOS(.v16)
+	],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "Packages",
-            targets: ["Packages"]),
+		.singleTargetLibrary("AppFeature")
     ],
+	dependencies: [
+		.package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", exact: "1.9.0")
+	],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "Packages"),
-        .testTarget(
-            name: "PackagesTests",
-            dependencies: ["Packages"]
-        ),
+            name: "AppFeature")
     ]
 )
+
+extension Product {
+	static func singleTargetLibrary(_ name: String) -> Product {
+		.library(name: name, targets: [name])
+	}
+}

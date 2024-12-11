@@ -5,7 +5,6 @@
 //  Created by revangelista on 30/04/2024.
 //
 
-import ComposableArchitecture
 import SwiftUI
 
 struct PomodoroMainView: View {

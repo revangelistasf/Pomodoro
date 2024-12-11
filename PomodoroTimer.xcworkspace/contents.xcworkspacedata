@@ -5,6 +5,6 @@
       location = "group:Packages">
    </FileRef>
    <FileRef
-      location = "container:Main.xcodeproj">
+      location = "container:PomodoroTimer.xcodeproj">
    </FileRef>
 </Workspace>

@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct PomodoroApp: App {
+struct PomodoroTimerApp: App {
     var body: some Scene {
         WindowGroup {
             if isProduction {
