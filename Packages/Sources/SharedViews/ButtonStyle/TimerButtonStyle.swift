@@ -1,8 +1,8 @@
 //
 //  TimerButtonStyle.swift
-//  Pomodoro
+//  Main
 //
-//  Created by Roberto Evangelista on 23/11/2024.
+//  Created by Roberto Evangelista on 11/12/2024.
 //
 
 import SwiftUI
