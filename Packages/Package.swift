@@ -23,6 +23,9 @@ let package = Package(
 		),
 		.target(
 			name: "SharedModels"
+		),
+		.target(
+			name: "SharedViews"
 		)
     ]
 )
