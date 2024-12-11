@@ -1,5 +1,13 @@
 //
 //  DividerWithText.swift
+//  Main
+//
+//  Created by Roberto Evangelista on 11/12/2024.
+//
+
+
+//
+//  DividerWithText.swift
 //  Pomodoro
 //
 //  Created by Roberto Evangelista on 23/11/2024.
